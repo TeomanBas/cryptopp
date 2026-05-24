@@ -1,4 +1,4 @@
-// integer.cpp - originally written and placed in the public domain by Wei Dai
+﻿// integer.cpp - originally written and placed in the public domain by Wei Dai
 // contains public domain code contributed by Alister Lee and Leonard Janke
 
 // Notes by JW: The Integer class needs to do two things. First, it needs
@@ -3044,7 +3044,7 @@ Integer::Integer(BufferedTransformation &encodedInteger, size_t byteCount, Signe
 	}
 }
 
-Integer::Integer(const byte *encodedInteger, size_t byteCount, Signedness s, ByteOrder o)
+Integer::Integer(const byte* encodedInteger, size_t byteCount, Signedness s, ByteOrder o)
 {
 	CRYPTOPP_ASSERT(encodedInteger && byteCount); // NULL buffer
 	CRYPTOPP_ASSERT(o == BIG_ENDIAN_ORDER || o == LITTLE_ENDIAN_ORDER);
@@ -3056,12 +3056,9 @@ Integer::Integer(const byte *encodedInteger, size_t byteCount, Signedness s, Byt
 	else
 	{
 		SecByteBlock block(byteCount);
-#if (_MSC_VER >= 1500)
-		std::reverse_copy(encodedInteger, encodedInteger+byteCount,
-			stdext::make_checked_array_iterator(block.begin(), block.size()));
-#else
-		std::reverse_copy(encodedInteger, encodedInteger+byteCount, block.begin());
-#endif
+
+		std::reverse_copy(encodedInteger, encodedInteger + byteCount, block.begin());
+
 		Decode(block.begin(), block.size(), s);
 		return;
 	}
